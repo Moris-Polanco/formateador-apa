@@ -62,7 +62,8 @@ def format_reference(reference):
     openai_prompt = (f"Format the following reference in APA style: "
                      f"{reference.authors} ({reference.year}). {reference.title}. {reference.source}")
     completions = openai.Completion.create(engine="text-davinci-002", prompt=openai_prompt, max_tokens=1024, n=1,stop=None,temperature=0.5)
-    message = completions.choices[return completions.choices[0].text
+    message = completions.choices[
+        return completions.choices[0].text
 
 def run_app():
     """Run the Streamlit app.
