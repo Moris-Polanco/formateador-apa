@@ -2,6 +2,7 @@ import openai
 import streamlit as st
 import re
 import os
+import io
 
 # Autenticación de OpenAI (oculta la clave en una variable de entorno)
 openai.api_key = os.environ.get("OPENAI_API_KEY")
@@ -50,6 +51,8 @@ def format_references(references: List[Reference]):
         formatted_references.append(format_reference(reference))
     return "\n".join(formatted_references)
 
+import io
+
 def read_ris_file(file):
     """Read a RIS file and return a list of references.
 
@@ -60,7 +63,8 @@ def read_ris_file(file):
         List[Reference]: A list of named tuples representing references.
     """
     references = []
-    with file.open('r') as f:
+    file_data = io.StringIO(file.getvalue().decode("utf-8"))
+    with file_data as f:
         lines = f.readlines()
         reference = ""
         for line in lines:
@@ -75,10 +79,6 @@ def read_ris_file(file):
                 match = re.search(r"JO\s+(.*)\n", reference)
                 source = match.group(1) if match else ""
                 references.append(Reference(type=reference_type, authors=authors, year=year, title=title, source=source))
-                reference = ""
-            else:
-                reference += line
-    return references
 
 def run_app():
     st.set_page_config(page_title="APA Reference Formatter", page_icon=":guardsman:", layout="wide")
