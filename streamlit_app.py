@@ -1,6 +1,7 @@
 import openai
 import streamlit as st
 import re
+import io
 import os
 
 # Clase para representar una referencia
