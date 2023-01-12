@@ -46,7 +46,7 @@ def run_app():
         formatted_references = format_references(references)
         st.text(formatted_references, formatting=False)
         st.success("References formatted in APA style!")
-        else:
+    else:
         st.warning("Please upload a RIS file.")
 
 if name == "main":
