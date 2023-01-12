@@ -4,10 +4,6 @@ import re
 import io
 import os
 
-import openai
-import streamlit as st
-import re
-import io
 
 # Clase para representar una referencia
 class Reference:
