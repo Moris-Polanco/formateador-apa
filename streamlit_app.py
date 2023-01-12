@@ -4,6 +4,11 @@ import re
 import io
 import os
 
+import openai
+import streamlit as st
+import re
+import io
+
 # Clase para representar una referencia
 class Reference:
     def __init__(self, type, authors, year, title, source):
@@ -13,15 +18,8 @@ class Reference:
         self.title = title
         self.source = source
 
+# Función para leer un archivo RIS y convertirlo en una lista de referencias
 def read_ris_file(file):
-    """Read a RIS file and return a list of references.
-
-    Parameters:
-        file (UploadedFile): The UploadedFile object returned by st.file_uploader.
-
-    Returns:
-        List[Reference]: A list of named tuples representing references.
-    """
     references = []
     file_data = io.StringIO(file.getvalue().decode("utf-8"))
     with file_data as f:
@@ -51,23 +49,16 @@ def read_ris_file(file):
                 reference += line
     return references
 
+# Función para usar GPT-3 para dar formato a una referencia en estilo APA
 def format_reference(reference):
-    """Use GPT-3 to format a reference in APA style.
-
-    Parameters:
-        reference (Reference): A named tuple representing a reference.
-
-    Returns:
-        str: The reference in APA style.
-    """
     openai_prompt = (f"Format the following reference in APA style: "
                      f"{reference.authors} ({reference.year}). {reference.title}. {reference.source}")
     completions = openai.Completion.create(engine="text-davinci-002", prompt=openai_prompt, max_tokens=1024, n=1,stop=None,temperature=0.5)
     message = completions.choices[0].text
+    return message
 
+# Función para ejecutar la aplicación de Streamlit
 def run_app():
-    """Run the Streamlit app.
-    """
     st.set_page_config(page_title="Reference Formatter", page_icon=":guardsman:", layout="wide")
     st.title("Reference Formatter using GPT-3")
     st.subheader("Upload your RIS file")
