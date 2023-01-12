@@ -72,7 +72,8 @@ def read_ris_file(file):
                 # Parse reference
                 match = re.search(r"AU\s+(.*)\n", reference)
                 authors = match.group(1) if match else ""
-                match = re.search(r"PY\s+(\d{4})\n", reference)
+                match = re.search(r"TY\s+(.*)\n", reference)
+                reference_type = match.group(1) if match else ""
                 year = match.group(1) if match else ""
                 match = re.search(r"TI\s+(.*)\n", reference)
                 title = match.group(1) if match else ""
