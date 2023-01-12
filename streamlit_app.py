@@ -1,8 +1,10 @@
-import streamlit as st
 import openai
+import streamlit as st
 import re
+import os
 
-openai.api_key = "YOUR_API_KEY"
+# Autenticación de OpenAI (oculta la clave en una variable de entorno)
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 def format_reference(reference):
     formatted_reference = openai.Completion.create(
