@@ -46,7 +46,7 @@ def read_ris_file(file):
                 match = re.search(r"PY\s+(\d{4})\n", line)
                 year = match.group(1) if match else ""
             elif line.startswith("TI"):
-                                match = re.search(r"TI\s+(.*)\n", line)
+                match = re.search(r"TI\s+(.*)\n", line)
                 title = match.group(1) if match else ""
             elif line.startswith("T2"):
                 match = re.search(r"T2\s+(.*)\n", line)
