@@ -54,13 +54,13 @@ def read_ris_file(file):
     """Read a RIS file and return a list of references.
 
     Parameters:
-        file (str): The file path of the RIS file.
+        file (UploadedFile): The UploadedFile object returned by st.file_uploader.
 
     Returns:
         List[Reference]: A list of named tuples representing references.
     """
     references = []
-    with open(file, "r") as f:
+    with file.open('r') as f:
         lines = f.readlines()
         reference = ""
         for line in lines:
